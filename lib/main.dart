@@ -16,15 +16,15 @@ class _MyAppState extends State<MyApp> {
   final questions = const [
     {
       'questionText': 'What\'s your favourite colour?',
-      'answers' : ['Red', 'Green', 'Yellow', 'Blue'],
+      'answers': ['Red', 'Green', 'Yellow', 'Blue'],
     },
     {
       'questionText': 'What\'s your favourite animal?',
-      'answers' : ['Cat', 'Dog', 'Rabbit', 'Hamster'],
+      'answers': ['Cat', 'Dog', 'Rabbit', 'Hamster'],
     },
     {
       'questionText': 'What\'s your favourite music genre?',
-      'answers' : ['Pop', 'Rock', 'Rap', 'Country'],
+      'answers': ['Pop', 'Rock', 'Rap', 'Country'],
     },
   ];
 
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
   void _answerQuestion() {
     setState(() {
-      _questionIndex ++;
+      _questionIndex++;
     });
 
     print(_questionIndex);
@@ -46,18 +46,23 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(
-      appBar: AppBar(
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
           title: Text('My First App'),
+        ),
+        body: _questionIndex < questions.length
+            ? Column(
+                children: [
+                  Question(questions[_questionIndex]['questionText']),
+                  ...(questions[_questionIndex]['answers'] as List<String>)
+                      .map((answer) {
+                    return Answer(_answerQuestion, answer);
+                  }).toList()
+                ],
+              )
+            : Center(child: Text('Finished!')),
       ),
-      body: _questionIndex < questions.length ? Column(
-        children: [
-          Question(questions[_questionIndex]['questionText']),
-          ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
-            return Answer(_answerQuestion, answer);
-          }).toList()
-        ],
-      ) : Center (child: Text('Finished!')),
-    ));
+    );
   }
 }

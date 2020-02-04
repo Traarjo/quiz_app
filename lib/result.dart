@@ -4,7 +4,6 @@ class Result extends StatelessWidget {
   final int resultScore;
   final Function resetHandler;
 
-
   Result(this.resultScore, this.resetHandler);
 
   String get resultPhrase {
@@ -33,7 +32,11 @@ class Result extends StatelessWidget {
             style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          FlatButton(child: Text('Restart Quiz!'), onPressed: resetHandler,),
+          FlatButton(
+            child: Text('Restart Quiz!'),
+            textColor: Colors.blue,
+            onPressed: resetHandler,
+          ),
         ],
       ),
     );
